@@ -1,0 +1,70 @@
+{
+    "name": "servergrove/livechat",
+    "type": "project",
+    "description": "LiveChat for Symfony2",
+    "license": "MIT",
+    "homepage": "http://servergrove.com",
+    "authors": [
+        {
+            "name": "ServerGrove",
+            "homepage": "http://servergrove.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/event-dispatcher": "~2.3",
+        "symfony/expression-language": "~2.4",
+        "symfony/form": "~2.3",
+        "symfony/framework-bundle": "~2.3",
+        "symfony/intl": "~2.3",
+        "symfony/monolog-bundle": "~2.3",
+        "symfony/options-resolver": "~2.3",
+        "symfony/property-access": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/symfony": "~2.3",
+        "symfony/twig-bundle": "~2.3",
+        "twig/extensions": "~1.0",
+        "twig/twig": "~1.11",
+        "sensio/distribution-bundle": "~2.3",
+        "stof/doctrine-extensions-bundle": "~1.1",
+        "swiftmailer/swiftmailer": "~5.0",
+        "doctrine/collections": "~1.2",
+        "doctrine/common": "~2.3",
+        "doctrine/doctrine-bundle": "~1.3",
+        "doctrine/doctrine-cache-bundle": "~1.0",
+        "doctrine/doctrine-migrations-bundle": "2.1.*@dev",
+        "doctrine/migrations": "~1.0@dev",
+        "doctrine/orm": "~2.4"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ]
+    },
+    "autoload": {
+        "psr-0": { "ServerGrove\\SGLiveChatBundle\\": "src/ServerGrove/SGLiveChatBundle" }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        }
+    }
+}

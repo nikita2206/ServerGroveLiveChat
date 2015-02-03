@@ -85,16 +85,13 @@ class ChatController extends PublicController
             $visitor->setName($this->getRequest()->get('name'));
             $this->getDocumentManager()->persist($visitor);
 
-            /* @var $chatSession ServerGrove\SGLiveChatBundle\Document\Session */
-            $chatSession = new Session();
+            $chatSession = new Session($this->getRequest()->get('question'), $visitor);
             $chatSession->setRemoteAddr($visitor->getRemoteAddr());
-            $chatSession->setVisitor($visitor);
 
             $visit = $this->getVisitByKey($visitor);
 
             $chatSession->setVisit($visit);
             $chatSession->setStatusId(Session::STATUS_WAITING);
-            $chatSession->setQuestion($this->getRequest()->get('question'));
             $this->getDocumentManager()->persist($chatSession);
 
             $this->getDocumentManager()->flush();
@@ -129,11 +126,9 @@ class ChatController extends PublicController
 
         $visitor = $visit->getVisitor();
 
-        /* @var $chatSession ServerGrove\SGLiveChatBundle\Document\Session */
-        $chatSession = new Session();
+        $chatSession = new Session($visitor, $visitor);
         $chatSession->setRemoteAddr($visitor->getRemoteAddr());
 
-        $chatSession->setVisitor($visitor);
         $chatSession->setVisit($visit);
         $chatSession->setOperator($operator);
 

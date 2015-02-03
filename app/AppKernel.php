@@ -1,7 +1,7 @@
 <?php
 
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\DependencyInjection\Loader\LoaderInterface;
+use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
@@ -11,27 +11,17 @@ class AppKernel extends Kernel
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
-
-            // enable third-party bundles
-            new Symfony\Bundle\ZendBundle\ZendBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
-            //new Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle(),
-            new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
-
-            // register your bundles
-            new ServerGrove\SGLiveChatBundle\SGLiveChatBundle());
+			new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+			new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new ServerGrove\SGLiveChatBundle\SGLiveChatBundle()
+		);
 
         if ($this->isDebug()) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
         }
 
         return $bundles;
-    }
-
-    public function registerRootDir()
-    {
-        return __DIR__;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

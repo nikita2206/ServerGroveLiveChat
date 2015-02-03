@@ -109,18 +109,18 @@ class Session
      */
     private $rating;
 
-    public function __construct()
+    public function __construct($question, Visitor $visitor = null)
     {
-        $this->setStatusId(self::STATUS_WAITING);
-    }
+        $this->question = $question;
+        $this->visitor  = $visitor;
 
-    /**
-     * @mongodb:PrePersist
-     */
-    public function registerFirstMessage()
-    {
+        $this->setStatusId(self::STATUS_WAITING);
         $this->setCreatedAt(date('Y-m-d H:i:s'));
         $this->registerUpdatedDate();
+
+        if ( ! empty($question) && $visitor !== null) {
+            $this->addChatMessage($question, $visitor);
+        }
     }
 
     /**
@@ -129,17 +129,6 @@ class Session
     public function registerUpdatedDate()
     {
         $this->setUpdatedAt(date('Y-m-d H:i:s'));
-    }
-
-    /**
-     * @mongodb:PrePersist
-     */
-    public function registerCreatedDate()
-    {
-        $question = $this->getQuestion();
-        if (!empty($question) && $this->getVisitor()) {
-            $this->addChatMessage($question, $this->getVisitor());
-        }
     }
 
     public function addChatMessage($content, User $sender)
@@ -248,16 +237,7 @@ class Session
     }
 
     /**
-     * @param Visitor $visitorId
-     * @return void
-     */
-    public function setVisitor($visitor)
-    {
-        $this->visitor = $visitor;
-    }
-
-    /**
-     * @return ServerGrove\SGLiveChatBundle\Document\Operator
+     * @return Operator
      */
     public function getOperator()
     {
@@ -302,11 +282,6 @@ class Session
     public function getQuestion()
     {
         return $this->question;
-    }
-
-    public function setQuestion($question)
-    {
-        $this->question = $question;
     }
 
     /**

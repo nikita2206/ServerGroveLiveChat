@@ -1,2 +1,6 @@
 app/logs/*
 app/cache/*
+vendor/
+composer.lock
+bin/
+app/bootstrap.php.cache
